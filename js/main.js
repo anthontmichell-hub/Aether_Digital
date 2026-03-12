@@ -45,47 +45,80 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // 3. SISTEMA DE CONTACTO Y TERMINAL (Enlace con Render)
+// 3. SISTEMA DE CONTACTO Y TERMINAL (Sincronización Aether)
 document.addEventListener('submit', function(e) {
-    // Buscamos el formulario por el ID que tienes en tu HTML
     if (e.target.id === 'contactForm') {
         e.preventDefault();
         
+        const overlay = document.getElementById('terminal-overlay');
+        const terminalBody = document.getElementById('terminal-body');
+        
+        // Captura de datos usando el ID (ajustado a tu HTML)
         const formData = {
-            nombre: e.target.querySelector('[name="nombre"]')?.value || "No provisto",
-            email: e.target.querySelector('[name="email"]')?.value || "No provisto",
-            mensaje: e.target.querySelector('[name="mensaje"]')?.value || "Sin mensaje"
+            nombre: document.getElementById('nombre')?.value || "Anónimo",
+            email: document.getElementById('email')?.value || "No provisto",
+            servicio: document.getElementById('servicio')?.value || "General",
+            mensaje: document.getElementById('mensaje')?.value || "Sin mensaje"
         };
 
-        // Buscamos el texto del terminal para cambiarlo
-        const terminalStatus = document.getElementById('terminal-status') || document.querySelector('.text-yellow-500');
-        
-        if (terminalStatus) {
-            terminalStatus.style.color = "#00E5FF"; // Color Cian
-            terminalStatus.innerText = "> Conectando con Núcleo Render... [WAIT]";
-        }
+        if (overlay && terminalBody) {
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            terminalBody.innerHTML = ''; 
 
-        fetch('https://aether-digital.onrender.com/enlace', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (terminalStatus) {
-                terminalStatus.style.color = "#4ADE80"; // Color Verde
-                terminalStatus.innerText = "> Python Online. Transmisión Exitosa. [OK]";
-            }
-            alert("🚀 Protocolo Aether completado: Mensaje enviado.");
-            e.target.reset();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            if (terminalStatus) {
-                terminalStatus.style.color = "#FACC15"; // Amarillo
-                terminalStatus.innerText = "> ERROR: Fallo de enlace crítico.";
-            }
-            alert("❌ Error de conexión con el servidor.");
-        });
+            const lines = [
+                { text: "> Iniciando protocolo de enlace...", color: "text-gray-400" },
+                { text: `> Usuario: ${formData.nombre} detectado...`, color: "text-[#BF00FF]" },
+                { text: "> Bypass de cortafuegos Aether... [OK]", color: "text-[#00E5FF]" },
+                { text: "> Sincronizando con Núcleo Render...", color: "text-gray-400" }
+            ];
+
+            let i = 0;
+            const printLine = () => {
+                if (i < lines.length) {
+                    const p = document.createElement('p');
+                    p.className = lines[i].color + " reveal";
+                    p.innerText = lines[i].text;
+                    terminalBody.appendChild(p);
+                    i++;
+                    setTimeout(printLine, 600);
+                } else {
+                    // --- REEMPLAZO MEJORADO ---
+                    fetch('https://aether-digital.onrender.com/enlace', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const ok = document.createElement('p');
+                        ok.className = "text-[#4ADE80] font-bold mt-2 reveal"; 
+                        ok.innerText = "> ENLACE ESTABLECIDO: Transmisión Exitosa";
+                        terminalBody.appendChild(ok);
+                        
+                        const msg = document.createElement('p');
+                        msg.className = "text-white/70 text-[10px] mt-1";
+                        msg.innerText = "Respuesta: Protocolo Anthony archivado.";
+                        terminalBody.appendChild(msg);
+
+                        // Esperamos 5 segundos para que veas el éxito, luego limpiamos
+                        setTimeout(() => { 
+                            overlay.classList.add('hidden'); 
+                            e.target.reset();
+                            // Quitamos el location.reload() para que el terminal no parpadee
+                        }, 5000);
+                    })
+                    .catch(() => {
+                        const err = document.createElement('p');
+                        err.className = "text-red-500 font-bold mt-2 reveal";
+                        err.innerText = "> ERROR: Fallo de enlace crítico.";
+                        terminalBody.appendChild(err);
+                        setTimeout(() => { overlay.classList.add('hidden'); }, 4000);
+                    });
+                }
+            };
+            printLine();
+        }
     }
 });
 
