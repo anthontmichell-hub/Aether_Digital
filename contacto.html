@@ -123,58 +123,69 @@
         const terminalBody = document.getElementById('terminal-body');
 
         form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const datosFormulario = {
-                nombre: document.getElementById('nombre').value,
-                servicio: document.getElementById('servicio').value,
-                mensaje: document.getElementById('mensaje').value
-            };
+    e.preventDefault();
+    
+    // Capturamos los datos (asegúrate de que los IDs coincidan con tu HTML)
+    const datosFormulario = {
+        nombre: document.getElementById('nombre')?.value || "Anónimo",
+        email: document.getElementById('email')?.value || "Sin email", // Cambié 'servicio' por 'email' si es el caso
+        mensaje: document.getElementById('mensaje')?.value || "Sin mensaje"
+    };
 
-            overlay.classList.remove('hidden');
-            overlay.classList.add('flex');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    terminalBody.innerHTML = ''; // Limpiamos el terminal antes de empezar
 
-            const lines = [
-                { text: "> Iniciando protocolo de enlace...", color: "text-gray-400" },
-                { text: "> Encriptando datos del usuario...", color: "text-gray-400" },
-                { text: "> Bypass de cortafuegos Aether... [OK]", color: "text-[#00E5FF]" },
-                { text: "> Sincronizando con Núcleo Python...", color: "text-gray-400" }
-            ];
+    const lines = [
+        { text: "> Iniciando protocolo de enlace...", color: "text-gray-400" },
+        { text: "> Encriptando datos del usuario...", color: "text-gray-400" },
+        { text: "> Bypass de cortafuegos Aether... [OK]", color: "text-[#00E5FF]" },
+        { text: "> Sincronizando con Núcleo Render...", color: "text-gray-400" }
+    ];
 
-            let i = 0;
-            const printLine = () => {
-                if (i < lines.length) {
-                    const p = document.createElement('p');
-                    p.className = lines[i].color + " reveal";
-                    p.innerText = lines[i].text;
-                    terminalBody.appendChild(p);
-                    i++;
-                    setTimeout(printLine, 600);
-                } else {
-                    fetch('http://127.0.0.1:5000/enlace', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(datosFormulario)
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        const ok = document.createElement('p');
-                        ok.className = "text-[#FF3131] font-bold mt-2 reveal";
-                        ok.innerText = "> ENLACE ESTABLECIDO: " + data.mensaje_servidor;
-                        terminalBody.appendChild(ok);
-                        setTimeout(() => { location.reload(); }, 3000);
-                    })
-                    .catch(() => {
-                        const err = document.createElement('p');
-                        err.className = "text-yellow-500 reveal";
-                        err.innerText = "> ERROR: Python offline. Reintente.";
-                        terminalBody.appendChild(err);
-                        setTimeout(() => { overlay.classList.add('hidden'); }, 3000);
-                    });
-                }
-            };
-            printLine();
-        });
+    let i = 0;
+    const printLine = () => {
+        if (i < lines.length) {
+            const p = document.createElement('p');
+            p.className = lines[i].color + " reveal";
+            p.innerText = lines[i].text;
+            terminalBody.appendChild(p);
+            i++;
+            setTimeout(printLine, 600);
+        } else {
+            // --- CONEXIÓN REAL CON RENDER ---
+            fetch('https://aether-digital.onrender.com/enlace', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosFormulario)
+            })
+            .then(res => res.json())
+            .then(data => {
+                const ok = document.createElement('p');
+                // Color verde neón para el éxito
+                ok.className = "text-[#4ADE80] font-bold mt-2 reveal"; 
+                ok.innerText = "> ENLACE ESTABLECIDO: Transmisión Exitosa";
+                terminalBody.appendChild(ok);
+                
+                // Mensaje final del servidor
+                const msg = document.createElement('p');
+                msg.className = "text-white text-xs opacity-70";
+                msg.innerText = "Respuesta: " + data.mensaje_servidor;
+                terminalBody.appendChild(msg);
+
+                setTimeout(() => { location.reload(); }, 4000);
+            })
+            .catch(() => {
+                const err = document.createElement('p');
+                err.className = "text-yellow-500 reveal";
+                err.innerText = "> ERROR: Fallo de enlace crítico. Reintentando...";
+                terminalBody.appendChild(err);
+                setTimeout(() => { overlay.classList.add('hidden'); }, 3000);
+            });
+        }
+    };
+    printLine();
+});
     </script>
 </body>
 </html>
