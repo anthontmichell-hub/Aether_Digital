@@ -1,0 +1,6 @@
+--- NUEVA CONSULTA [2026-03-11 23:18:19] ---
+CLIENTE: Anthony
+SERVICIO: Desarrollo Web
+MENSAJE: Una página web para un hotel 
+------------------------------
+

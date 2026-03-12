@@ -1,0 +1,77 @@
+<nav class="flex justify-between items-center p-5 w-full h-[80px]">
+    <a href="index.html" class="flex items-center gap-4 ml-8 hover:opacity-90 transition group">
+    <div class="flex-shrink-0 w-[50px] h-[50px] md:w-[60px] md:h-[60px] flex items-center justify-center relative">
+        
+        <div class="absolute inset-0 bg-[#FF0033]/30 blur-[30px] rounded-full stardust-effect"></div>
+        <div class="absolute inset-0 bg-[#FF0033]/10 blur-[15px] rounded-full stardust-effect-secondary"></div>
+        
+        <img src="logo-aether.png" 
+             alt="Aether Energy Core" 
+             class="w-full h-full object-contain relative z-10 logo-vibration"
+             style="mix-blend-mode: screen; filter: brightness(1.2);">
+    </div>
+    
+    <span class="tracking-[0.4em] font-light text-[10px] md:text-sm uppercase text-white">
+        AETHER <span class="text-[#FF0033] font-bold">DIGITAL</span>
+    </span>
+</a>
+
+    <div id="nav-menu" class="hidden md:flex items-center gap-12 text-[11px] uppercase tracking-[0.2em] font-bold text-gray-400 mr-12">
+        <a href="index.html" class="nav-item transition-all duration-300 hover:text-white hover:scale-105">Inicio</a>
+        <a href="nosotros.html" class="nav-item transition-all duration-300 hover:text-white hover:scale-105">Nosotros</a>
+        <a href="servicios.html" class="nav-item transition-all duration-300 hover:text-white hover:scale-105">Servicios</a>
+        <a href="contacto.html" class="nav-item transition-all duration-300 hover:text-white hover:scale-105">Contacto</a>
+    </div>
+</nav>
+
+<style>
+    /* Solo animaciones y hover aquí, nada de posiciones */
+    .logo-vibration {
+        filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.3));
+        animation: energy-pulse 5s ease-in-out infinite;
+        
+    }
+
+    @keyframes energy-pulse {
+        0%, 100% { transform: scale(1); filter: brightness(1); }
+        50% { transform: scale(1.05); filter: brightness(1.3) drop-shadow(0 0 20px rgba(191, 0, 255, 0.5)); }
+    }
+    /* Animación de Polvo Estelar (Nebulosa) */
+.stardust-effect {
+    animation: nebula-pulse 4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.stardust-effect-secondary {
+    animation: nebula-pulse 6s ease-in-out infinite reverse;
+    filter: hue-rotate(15deg); /* Un pequeño cambio de tono para dar profundidad */
+}
+
+@keyframes nebula-pulse {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg); 
+        opacity: 0.4;
+        filter: blur(30px);
+    }
+    50% { 
+        transform: scale(1.8) rotate(180deg); /* Se expande y gira */
+        opacity: 0.7;
+        filter: blur(45px); /* Se difumina más al crecer */
+    }
+}
+
+/* Mantenemos tu logo creciendo, pero ahora están coordinados */
+.logo-vibration {
+    animation: logo-float 4s ease-in-out infinite;
+}
+
+@keyframes logo-float {
+    0%, 100% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 10px rgba(255,0,51,0.5)); }
+    50% { transform: scale(1.1); filter: brightness(1.4) drop-shadow(0 0 25px rgba(255,0,51,0.8)); }
+}
+
+    .nav-item:hover {
+        color: #00E5FF !important;
+        text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+    }
+</style>

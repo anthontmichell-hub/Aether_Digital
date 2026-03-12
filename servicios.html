@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios | Aether Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script> 
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#020202] text-white font-['Plus_Jakarta_Sans'] overflow-x-hidden pt-[80px]">
+    
+    <canvas id="canvas-bg" class="fixed top-0 left-0 w-full h-full pointer-events-none" style="z-index: -20;"></canvas>
+    <canvas id="matrix-canvas" class="fixed top-0 right-0 w-full md:w-1/2 h-full pointer-events-none opacity-30" 
+            style="z-index: -10; mix-blend-mode: screen; mask-image: linear-gradient(to left, black, transparent); -webkit-mask-image: linear-gradient(to left, black, transparent);"></canvas>
+    
+    <div id="navbar-placeholder" class="fixed top-0 left-0 w-full z-[99999]"></div>
+
+    <section class="pt-48 pb-20 px-6 max-w-7xl mx-auto text-center relative z-10">
+        <h2 class="text-[#00E5FF] text-xs font-black uppercase tracking-[0.5em] mb-4 animate-pulse">Catálogo de Innovación</h2>
+        <h1 class="text-6xl md:text-8xl font-extrabold mb-8 tracking-tighter">Transformamos <br>
+            <span class="aether-gradient-text italic font-light">Visiones en Código.</span>
+        </h1>
+        <p class="text-gray-400 text-xl font-light max-w-3xl mx-auto leading-relaxed">
+            No solo creamos software; diseñamos ecosistemas digitales escalables, seguros y centrados en la conversión.
+        </p>
+    </section>
+
+    <section class="max-w-7xl mx-auto pb-20 px-6 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            
+            <div class="md:col-span-7 glass-card p-10 min-h-[450px] flex flex-col justify-between group hover:border-[#FF0033]/40 transition-all duration-700">
+                <div>
+                    <div class="w-16 h-16 bg-[#FF0033]/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#FF0033]/20 transition-colors">
+                        <i class="fas fa-microchip text-4xl text-[#FF0033]"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-4">Sistemas ERP Inteligentes</h3>
+                    <p class="text-gray-400 font-light leading-relaxed text-lg">
+                        Arquitecturas a medida para el control total de tu operación. Desde gestión de inventarios en tiempo real hasta integración financiera automatizada.
+                    </p>
+                    <ul class="mt-6 space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-[#FF0033] mr-2"></i> Automatización de procesos críticos.</li>
+                        <li><i class="fas fa-check text-[#FF0033] mr-2"></i> Reportes predictivos con Big Data.</li>
+                    </ul>
+                </div>
+                <a href="contacto.html" class="text-[#FF0033] text-xs font-bold uppercase tracking-widest hover:gap-4 flex items-center transition-all">
+                    Consultar Solución <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+
+            <div class="md:col-span-5 glass-card p-10 flex flex-col justify-between group hover:border-[#BF00FF]/40 transition-all duration-700">
+                <div>
+                    <div class="w-16 h-16 bg-[#BF00FF]/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#BF00FF]/20 transition-colors">
+                        <i class="fas fa-code text-4xl text-[#BF00FF]"></i>
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4">Ecosistemas Web</h4>
+                    <p class="text-gray-400 font-light leading-relaxed">
+                        Interfaces de alto impacto que fusionan diseño de vanguardia con rendimiento extremo. Optimizadas para SEO y conversión.
+                    </p>
+                </div>
+                <a href="contacto.html" class="text-[#BF00FF] text-xs font-bold uppercase tracking-widest flex items-center">
+                    Explorar stacks <i class="fas fa-plus ml-2 text-[8px]"></i>
+                </a>
+            </div>
+
+            <div class="md:col-span-12 glass-card p-12 hover:border-[#FF0033]/30 transition-all duration-700 flex flex-col md:flex-row justify-between items-center gap-12 bg-gradient-to-r from-transparent via-[#FF0033]/5 to-transparent">
+                <div class="max-w-2xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <i class="fas fa-brain text-4xl text-[#FF0033]"></i>
+                        <span class="text-[#FF0033] text-xs tracking-[0.5em] uppercase font-black">Core de Innovación</span>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-6">IA & Machine Learning Operativo</h3>
+                    <p class="text-gray-400 text-lg font-light leading-relaxed">
+                        No implementamos IA por moda, sino por utilidad. Desarrollamos modelos de aprendizaje automático que reducen costos operativos y predicen el comportamiento de tus usuarios.
+                    </p>
+                </div>
+                <div class="text-center md:text-right">
+                    <div class="text-7xl font-black text-white/5 mb-6 font-mono select-none">NEURAL-X</div>
+                    <a href="contacto.html" class="bg-white text-black hover:bg-[#FF0033] hover:text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-500 inline-block">Agendar Auditoría IA</a>
+                </div>
+            </div>
+
+            <div class="md:col-span-6 glass-card p-10 group hover:border-red-500/50 transition-all">
+                <i class="fas fa-shield-halved text-3xl text-red-500 mb-6"></i>
+                <h3 class="text-2xl font-bold mb-4">Blindaje Digital</h3>
+                <p class="text-gray-400 font-light">Auditorías preventivas, protocolos de encriptación y protección de datos bajo estándares internacionales.</p>
+            </div>
+
+            <div class="md:col-span-6 glass-card p-10 group hover:border-[#BF00FF]/50 transition-all">
+                <i class="fas fa-rocket text-3xl text-[#BF00FF] mb-6"></i>
+                <h3 class="text-2xl font-bold mb-4">Estrategia de Crecimiento</h3>
+                <p class="text-gray-400 font-light">Acompañamos tu transformación digital desde la idea hasta el despliegue global. Escalabilidad garantizada.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="py-20 text-center border-t border-white/5 relative z-10">
+        <p class="text-gray-600 text-xs tracking-widest uppercase">&copy; 2026 Aether Digital - Ingeniería del Futuro</p>
+    </footer>
+
+    <script src="js/matrix.js"></script>
+    <script src="js/electrons.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentPath = window.location.pathname.split("/").pop() || "index.html";
+            setTimeout(() => {
+                const navItems = document.querySelectorAll(".nav-item");
+                navItems.forEach(item => {
+                    if (item.getAttribute("href") === currentPath) {
+                        item.classList.remove("text-gray-400");
+                        item.classList.add("text-[#00E5FF]"); 
+                        item.style.filter = "drop-shadow(0 0 8px rgba(0, 229, 255, 0.5))";
+                    }
+                });
+            }, 200); 
+        });
+    </script>
+</body>
+</html>
