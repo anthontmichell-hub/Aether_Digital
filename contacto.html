@@ -76,6 +76,37 @@
                     </div>
                 </div>
             </div>
+            <div class="glass-card p-10 shadow-2xl backdrop-blur-xl reveal delay-2 border border-white/10 rounded-2xl">
+                <form id="contactForm" class="space-y-6"> <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Nombre</label>
+                            <input type="text" id="nombre" required placeholder="Tu nombre" class="w-full border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-white placeholder:text-gray-600">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Correo Electrónico</label>
+                            <input type="email" id="email" required placeholder="tu@email.com" class="w-full border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-white placeholder:text-gray-600">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Servicio Interesado</label>
+                        <select id="servicio" class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-gray-400 cursor-pointer">
+                            <option>Desarrollo Web</option>
+                            <option>Sistemas ERP</option>
+                            <option>Inteligencia de Datos</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Mensaje</label>
+                        <textarea id="mensaje" rows="4" required placeholder="¿En qué podemos ayudarte?" class="w-full border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-white placeholder:text-gray-600"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-aether w-full py-4 rounded-xl uppercase tracking-[0.2em] text-[10px] font-bold text-white active:scale-95 transition-all">
+                        Enviar Solicitud
+                    </button>
+                </form>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="space-y-2">
