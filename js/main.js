@@ -73,7 +73,7 @@ function startCounter(counter) {
     const target = +counter.getAttribute('data-target');
     let count = 0;
     const updateCount = () => {
-        const inc = target / 50; // Velocidad del contador
+        const inc = target / 50; 
         if (count < target) {
             count += inc;
             counter.innerText = Math.ceil(count);
@@ -84,3 +84,48 @@ function startCounter(counter) {
     };
     updateCount();
 }
+
+// 3. SISTEMA DE CONTACTO Y TERMINAL (Conexión con Render)
+document.addEventListener('submit', function(e) {
+    if (e.target.id === 'contact-form' || e.target.classList.contains('aether-form')) {
+        e.preventDefault();
+        
+        const formData = {
+            nombre: e.target.querySelector('[name="nombre"]')?.value || "No provisto",
+            email: e.target.querySelector('[name="email"]')?.value || "No provisto",
+            mensaje: e.target.querySelector('[name="mensaje"]')?.value || "Sin mensaje"
+        };
+
+        // --- EFECTO VISUAL DE TERMINAL ---
+        const terminalStatus = document.querySelector('.text-yellow-500'); // El que dice ERROR
+        if (terminalStatus) {
+            terminalStatus.classList.replace('text-yellow-500', 'text-cyan-400');
+            terminalStatus.innerText = "> Conectando con Núcleo Render... [WAIT]";
+        }
+
+        console.log("Enviando datos a la nube...", formData);
+
+        fetch('https://aether-digital.onrender.com/enlace', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Actualizar terminal a EXITO
+            if (terminalStatus) {
+                terminalStatus.classList.replace('text-cyan-400', 'text-green-400');
+                terminalStatus.innerText = "> Python Online. Transmisión Exitosa. [OK]";
+            }
+            alert("🚀 Protocolo Aether completado: Mensaje enviado.");
+            e.target.reset();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            if (terminalStatus) {
+                terminalStatus.innerText = "> ERROR: Fallo de enlace crítico.";
+            }
+            alert("❌ Error de conexión con el servidor.");
+        });
+    }
+});
