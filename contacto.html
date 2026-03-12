@@ -77,22 +77,24 @@
                 </div>
             </div>
 
-            <div class="glass-card p-10 shadow-2xl backdrop-blur-xl reveal delay-2 border border-white/10 rounded-2xl">
-                <form id="contactForm" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Nombre</label>
-                            <input type="text" id="nombre" required placeholder="Tu nombre" class="w-full border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-white placeholder:text-gray-600">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Servicio</label>
-                            <select id="servicio" class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-gray-400 cursor-pointer">
-                                <option>Desarrollo Web</option>
-                                <option>Sistemas ERP</option>
-                                <option>Inteligencia de Datos</option>
-                            </select>
-                        </div>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="space-y-2">
+        <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Nombre</label>
+        <input type="text" id="nombre" required placeholder="Tu nombre" class="w-full border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-white placeholder:text-gray-600">
+    </div>
+    <div class="space-y-2">
+        <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Correo Electrónico</label>
+        <input type="email" id="email" required placeholder="tu@email.com" class="w-full border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-white placeholder:text-gray-600">
+    </div>
+</div>
+<div class="space-y-2">
+    <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Servicio Interesado</label>
+    <select id="servicio" class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-gray-400 cursor-pointer">
+        <option>Desarrollo Web</option>
+        <option>Sistemas ERP</option>
+        <option>Inteligencia de Datos</option>
+    </select>
+</div>
                     <div class="space-y-2">
                         <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Mensaje</label>
                         <textarea id="mensaje" rows="4" required placeholder="¿En qué podemos ayudarte?" class="w-full border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none text-white placeholder:text-gray-600"></textarea>
@@ -120,75 +122,5 @@
     <script src="js/electrons.js"></script>
     <script src="js/main.js"></script>
     
-    <script>
-        const form = document.getElementById('contactForm');
-        const overlay = document.getElementById('terminal-overlay');
-        const terminalBody = document.getElementById('terminal-body');
-
-        form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Capturamos los datos (asegúrate de que los IDs coincidan con tu HTML)
-    const datosFormulario = {
-        nombre: document.getElementById('nombre')?.value || "Anónimo",
-        email: document.getElementById('email')?.value || "Sin email", // Cambié 'servicio' por 'email' si es el caso
-        mensaje: document.getElementById('mensaje')?.value || "Sin mensaje"
-    };
-
-    overlay.classList.remove('hidden');
-    overlay.classList.add('flex');
-    terminalBody.innerHTML = ''; // Limpiamos el terminal antes de empezar
-
-    const lines = [
-        { text: "> Iniciando protocolo de enlace...", color: "text-gray-400" },
-        { text: "> Encriptando datos del usuario...", color: "text-gray-400" },
-        { text: "> Bypass de cortafuegos Aether... [OK]", color: "text-[#00E5FF]" },
-        { text: "> Sincronizando con Núcleo Render...", color: "text-gray-400" }
-    ];
-
-    let i = 0;
-    const printLine = () => {
-        if (i < lines.length) {
-            const p = document.createElement('p');
-            p.className = lines[i].color + " reveal";
-            p.innerText = lines[i].text;
-            terminalBody.appendChild(p);
-            i++;
-            setTimeout(printLine, 600);
-        } else {
-            // --- CONEXIÓN REAL CON RENDER ---
-            fetch('https://aether-digital.onrender.com/enlace', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(datosFormulario)
-            })
-            .then(res => res.json())
-            .then(data => {
-                const ok = document.createElement('p');
-                // Color verde neón para el éxito
-                ok.className = "text-[#4ADE80] font-bold mt-2 reveal"; 
-                ok.innerText = "> ENLACE ESTABLECIDO: Transmisión Exitosa";
-                terminalBody.appendChild(ok);
-                
-                // Mensaje final del servidor
-                const msg = document.createElement('p');
-                msg.className = "text-white text-xs opacity-70";
-                msg.innerText = "Respuesta: " + data.mensaje_servidor;
-                terminalBody.appendChild(msg);
-
-                setTimeout(() => { location.reload(); }, 4000);
-            })
-            .catch(() => {
-                const err = document.createElement('p');
-                err.className = "text-yellow-500 reveal";
-                err.innerText = "> ERROR: Fallo de enlace crítico. Reintentando...";
-                terminalBody.appendChild(err);
-                setTimeout(() => { overlay.classList.add('hidden'); }, 3000);
-            });
-        }
-    };
-    printLine();
-});
-    </script>
 </body>
 </html>
